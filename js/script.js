@@ -30,11 +30,11 @@ function metodoSimplex(qtdRest, qtdVarDec) {
                     vetor[i][j] = 0;
                 }
             } else if (i===0) {
-                let valor = parseFloat(prompt("Digite o valor à esquerda de X" + (j+1) + " da Função Objetivo: "));
+                let valor = parseFloat(prompt("Digite o coeficiente de X" + (j+1) + " da Função Objetivo: "));
                 valor = valor * (-1);
                 vetor[i][j] = valor;
             } else {
-                let valor = parseFloat(prompt("Digite o valor à esquerda de X" + (j+1) + " da Restrição " + i + ": "));
+                let valor = parseFloat(prompt("Digite o coeficiente de X" + (j+1) + " da Restrição " + i + ": "));
                 vetor[i][j] = valor;
             }
         }
@@ -43,9 +43,35 @@ function metodoSimplex(qtdRest, qtdVarDec) {
         }
     }
 
+    
     do {
+        var pivo = testarLinha1(vetor, colunas);
+        console.log(pivo);
+
+        let numProcurado = pivo;
+        let colunaProcurada = null;
+        let array1 = [];
+
+        for (let i=0; i<vetor.length; i++) {
+            for (let j=0; j<vetor[i].length; j++) {
+                if (vetor[i][j]===numProcurado) {
+                    colunaProcurada = j;
+                    break;
+                }
+            }
+            if (colunaProcurada !== null) {
+            break;
+            }  
+        }
+
+        if (colunaProcurada!==null) {
+            for (var k=0; k<vetor.length; k++) {
+                array1.push(vetor[k][colunaProcurada]);
+            }
+        }
         
-    } while (parar=false);
+    } while (pivo!==0);
+
 
     return vetor;
 
@@ -64,6 +90,23 @@ function testarLinha1(vetor, colunas) {
         let numeros = vetor[0][j];
         array.push(numeros);
     }
-}
+    let newArray = [];
+    let numNeg = null;
+    for (let i=0; i<array.length; i++) {
+        let numero = array[i];
+        if (numero<0) {
+            newArray.push(numero);
+            if (numNeg === null || numero < numNeg) {
+                numNeg = numero;
+            }
+        }
+    }
+    
+    console.log(numNeg);
 
-metodoSimplex();
+    if (newArray===[]) {
+        return 0;
+    } else {
+        return numNeg;
+    }
+}

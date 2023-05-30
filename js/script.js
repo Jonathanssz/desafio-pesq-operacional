@@ -1,7 +1,7 @@
 //Início do Problema
 const tipoFuncObjt = "max";
-const qtdRest = 3;
-const qtdVarDec = 4;
+const qtdRest = 2;
+const qtdVarDec = 2;
 
 if (tipoFuncObjt === "max") {
     let resultado = metodoSimplex(qtdRest, qtdVarDec);
@@ -12,7 +12,8 @@ function metodoSimplex(qtdRest, qtdVarDec) {
     const linhas = qtdRest + 1;
     const colunas = qtdVarDec + qtdRest + 1;
     const vetor = [];
-    let z = qtdVarDec;
+    let z = qtdVarDec; // Apenas para recurso
+    let parar = false;
     
     for (let i=0; i<linhas; i++) {
         vetor[i] = [];
@@ -39,9 +40,12 @@ function metodoSimplex(qtdRest, qtdVarDec) {
         }
         if (i>0) {
             z = z + 1;
-            console.log(z);
         }
     }
+
+    do {
+        
+    } while (parar=false);
 
     return vetor;
 
@@ -52,6 +56,14 @@ function metodoSimplex(qtdRest, qtdVarDec) {
     // const p2 = (funcRest[0][2] - 0) / funcRest[0][0] // Restrição 1 se x2 for zero
     // const p3 = (funcRest[1][2] - 0) / funcRest[1][1] // Restrição 2 se x1 for zero
     // const p4 = (funcRest[1][2] - 0) / funcRest[1][0] // Restrição 2 se x2 for zero
+}
+
+function testarLinha1(vetor, colunas) {
+    let array = [];
+    for (let j=0; j<colunas; j++) {
+        let numeros = vetor[0][j];
+        array.push(numeros);
+    }
 }
 
 metodoSimplex();

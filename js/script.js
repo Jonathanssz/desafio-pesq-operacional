@@ -159,7 +159,7 @@ function armazenaLinhas(colunaPivo, colunas, vetor) {
 }
 
 function armazenaLinhasP(variavel, colunas, vetor) {
-    let array = [];
+    let arrayI = [];
     for (let i=0; i<vetor.length; i++) { // i < tamanho 3 linhas
         let colunaProcurada = null;
         let numProcurado = variavel; // 120
@@ -175,16 +175,14 @@ function armazenaLinhasP(variavel, colunas, vetor) {
         }
     
         if (colunaProcurada!==null) {
-            let arrayI = [];
             for (let i=0; i<vetor.length; i++) {
                 for (let k=colunaProcurada; k<colunas; k++) {
-                    arrayI.push(vetor[i][k]);
+                    arrayJ.push(vetor[i][k]);
                 }
-                arrayJ.push(arrayJ);
             }
         }
-        array.push(arrayJ);
+        arrayI.push(arrayJ);
     }
-    console.log(array);
-    return array;
+    console.log(arrayI);
+    return arrayI;
 }

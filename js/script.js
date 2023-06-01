@@ -1,7 +1,7 @@
 //Início do Problema
 const tipoFuncObjt = "max";
-const qtdRest = 3;
-const qtdVarDec = 4;
+const qtdRest = 2;
+const qtdVarDec = 2;
 
 if (tipoFuncObjt === "max") {
     let resultado = metodoSimplex(qtdRest, qtdVarDec);
@@ -47,18 +47,23 @@ function metodoSimplex(qtdRest, qtdVarDec) {
     do {
         // Testa a primeira linha
         var variavel = testarLinha1(vetor, colunas); // pega o número mais negativo
-        console.log(variavel);
-        console.log(vetor.length);
+        console.log(variavel); // ok
+        console.log(vetor.length); // ok
         
         // Armazenar a coluna pivô
         let colunaPivo = armazenaColuna(variavel, vetor);
+        console.log(colunaPivo); // ok
 
-        // Armazenas as linhas considerando a coluna pivô
+        // Armazenas as linhas se baseando na coluna pivô
         let linhasPivo = armazenaLinhasP(variavel, colunas, vetor);
-        console.log(linhasPivo);
+        console.log(linhasPivo); // ok
+
+        // Escolher a linha pivô
+        
 
         // Armazenar as linhas
         let linhas = armazenaLinhas(variavel, colunas, vetor);
+        console.log(linhas);
         variavel = 0;
 
     } while (variavel!==0);
@@ -92,9 +97,6 @@ function testarLinha1(vetor, colunas) {
             }
         }
     }
-    
-    console.log(numNeg);
-
     if (newArray===[]) {
         return 0;
     } else {
@@ -124,7 +126,33 @@ function armazenaColuna(variavel, vetor) {
             array.push(vetor[k][colunaProcurada]);
         }
     }
-    console.log(array);
+    return array;
+}
+
+function armazenaLinhasP(variavel, colunas, vetor) {
+    let colunaProcurada = null;
+    let numProcurado = variavel; // 120
+    let array = [];
+    for (let i=0; i<vetor.length; i++) {
+        for (let j=0; j<colunas; j++) { // j < tamanho do array linha
+            if (vetor[i][j]===numProcurado) {
+                colunaProcurada = j;
+                break;
+            }
+        }
+    }
+
+    if (colunaProcurada!==null) {
+        let arrayI = [];
+        for (let i=0; i<vetor.length; i++) {
+            let arrayJ = [];
+            for (let k=colunaProcurada; k<colunas; k++) {
+                arrayJ.push(vetor[i][k]);
+            }
+            arrayI.push(arrayJ);
+        }
+        array.push(arrayI);
+    }
     return array;
 }
 
@@ -150,35 +178,6 @@ function armazenaLinhas(colunaPivo, colunas, vetor) {
         if (linhaProcurada!==null) {
             for (let k=0; k<colunas; k++) {
                 arrayJ.push(vetor[linhaProcurada][k]);
-            }
-        }
-        arrayI.push(arrayJ);
-    }
-    console.log(arrayI);
-    return arrayI;
-}
-
-function armazenaLinhasP(variavel, colunas, vetor) {
-    let arrayI = [];
-    for (let i=0; i<vetor.length; i++) { // i < tamanho 3 linhas
-        let colunaProcurada = null;
-        let numProcurado = variavel; // 120
-        let arrayJ = [];
-        
-        for (let j=0; j<colunas; j++) { // j < tamanho do array linha
-            if (vetor[i][j]===numProcurado) {
-                colunaProcurada = j;
-                numProcurado = vetor[i+1][j];
-                console.log(numProcurado);
-                break;
-            }
-        }
-    
-        if (colunaProcurada!==null) {
-            for (let i=0; i<vetor.length; i++) {
-                for (let k=colunaProcurada; k<colunas; k++) {
-                    arrayJ.push(vetor[i][k]);
-                }
             }
         }
         arrayI.push(arrayJ);

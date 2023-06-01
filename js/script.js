@@ -43,7 +43,6 @@ function metodoSimplex(qtdRest, qtdVarDec) {
         }
     }
 
-    
     do {
         // Testa a primeira linha
         var variavel = testarLinha1(vetor, colunas); // pega o número mais negativo
@@ -59,11 +58,11 @@ function metodoSimplex(qtdRest, qtdVarDec) {
         console.log(linhasPivo); // ok
 
         // Escolher a linha pivô
-        
+        let linhaPivo = dividirExtremos(linhasPivo, vetor);
+        console.log(linhaPivo);
 
         // Armazenar as linhas
         let linhas = armazenaLinhas(variavel, colunas, vetor);
-        console.log(linhas);
         variavel = 0;
 
     } while (variavel!==0);
@@ -132,7 +131,6 @@ function armazenaColuna(variavel, vetor) {
 function armazenaLinhasP(variavel, colunas, vetor) {
     let colunaProcurada = null;
     let numProcurado = variavel; // 120
-    let array = [];
     for (let i=0; i<vetor.length; i++) {
         for (let j=0; j<colunas; j++) { // j < tamanho do array linha
             if (vetor[i][j]===numProcurado) {
@@ -151,9 +149,29 @@ function armazenaLinhasP(variavel, colunas, vetor) {
             }
             arrayI.push(arrayJ);
         }
-        array.push(arrayI);
+        return arrayI;
     }
-    return array;
+}
+
+function dividirExtremos(linhasPivo, vetor) {
+    let menorResultado = null;
+    let linhaPivo = [];
+
+    for (let i=1; i<vetor.length; i++) {
+        for (let j=0; j<linhasPivo.length; j++) {
+            let linha = linhasPivo;
+            let primeiroValor = linha[0];
+            let ultimoValor = linha[linha.length];
+            let resultadoDivisao = primeiroValor / ultimoValor;
+    
+            if (resultadoDivisao < menorResultado) {
+                menorResultado = resultadoDivisao;
+            }
+            linhaPivo.push(linha);
+        }
+    }
+
+    return linhaPivo;
 }
 
 function armazenaLinhas(colunaPivo, colunas, vetor) {

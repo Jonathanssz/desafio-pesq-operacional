@@ -55,6 +55,7 @@ function metodoSimplex(qtdRest, qtdVarDec) {
 
         // Armazenas as linhas considerando a coluna pivô
         let linhasPivo = armazenaLinhasP(variavel, colunas, vetor);
+        console.log(linhasPivo);
 
         // Armazenar as linhas
         let linhas = armazenaLinhas(variavel, colunas, vetor);
@@ -158,26 +159,32 @@ function armazenaLinhas(colunaPivo, colunas, vetor) {
 }
 
 function armazenaLinhasP(variavel, colunas, vetor) {
-    let arrayI = [];
+    let array = [];
     for (let i=0; i<vetor.length; i++) { // i < tamanho 3 linhas
-        let numProcurado = variavel; // 120
         let colunaProcurada = null;
+        let numProcurado = variavel; // 120
         let arrayJ = [];
-
+        
         for (let j=0; j<colunas; j++) { // j < tamanho do array linha
             if (vetor[i][j]===numProcurado) {
                 colunaProcurada = j;
+                numProcurado = vetor[i+1][j];
+                console.log(numProcurado);
                 break;
             }
         }
     
         if (colunaProcurada!==null) {
-            for (let k=colunaProcurada; k<colunas; k++) {
-                arrayJ.push(vetor[i][k]);
+            let arrayI = [];
+            for (let i=0; i<vetor.length; i++) {
+                for (let k=colunaProcurada; k<colunas; k++) {
+                    arrayI.push(vetor[i][k]);
+                }
+                arrayJ.push(arrayJ);
             }
         }
-        arrayI.push(arrayJ);
+        array.push(arrayJ);
     }
-    console.log(arrayI);
-    return arrayI;
+    console.log(array);
+    return array;
 }
